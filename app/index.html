@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./icone.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icone-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maçonnerie — mur non armé (EN 1996-1-1)</title>
+    <meta name="description" content="Vérification d’un mur en maçonnerie non armée selon l’EN 1996-1-1 : charge verticale, charge concentrée, cisaillement et charge latérale." />
+    <meta name="theme-color" content="#f7f7f6" />
+  </head>
+  <body>
+    <div class="barre">
+      <div class="barre-corps">
+        <span class="barre-nom">webaedificium</span>
+        <div class="barre-actions">
+          <a class="barre-lien" href="https://henri421.github.io/WebAedificium/" target="_blank" rel="noopener">Suite</a>
+          <a class="barre-langue" href="en/" lang="en" hreflang="en">EN</a>
+        </div>
+      </div>
+    </div>
+    <header>
+      <h1>Maçonnerie</h1>
+      <p class="sous-titre">Mur en maçonnerie non armée : charge verticale, charge concentrée, cisaillement de contreventement et charge latérale (EN 1996-1-1:2005+A1:2012).</p>
+      <p class="avertissement">Non traités : maçonnerie armée, précontrainte ou confinée, murs creux, voûte horizontale (6.3.2), feu, séisme.</p>
+    </header>
+    <div class="feuilles" data-role="feuilles"></div>
+    <main>
+      <section id="saisie" aria-label="Saisie">
+        <form id="formulaire" autocomplete="off" novalidate>
+          <p data-role="erreur" class="erreur" role="alert" hidden></p>
+<fieldset>
+<legend>Mur</legend>
+<label class="ligne"><span>Épaisseur t (m)</span><input type="text" inputmode="decimal" data-champ="t" /></label>
+<label class="ligne"><span>Hauteur libre h (m)</span><input type="text" inputmode="decimal" data-champ="h" /></label>
+<label class="ligne"><span>Longueur L (m)</span><input type="text" inputmode="decimal" data-champ="L" /></label>
+<label class="ligne"><span>Poids volumique (kN/m³)</span><input type="text" inputmode="decimal" data-champ="poids" /></label>
+<label class="ligne"><span>Tête et pied</span><select data-champ="appuis"><option value="dalle">Dalle béton armé : ρ₂ = 0,75</option><option value="bois">Plancher bois : ρ₂ = 1,00</option></select></label>
+<label class="ligne"><span>Bords verticaux raidis</span><select data-champ="bordsVerticaux"><option value="0">0 (ρ₂)</option><option value="1">1 (ρ₃)</option><option value="2">2 (ρ₄)</option></select></label>
+</fieldset>
+<fieldset>
+<legend>Matériaux</legend>
+<label class="ligne"><span>Élément</span><select data-champ="famille"><option value="terre-cuite">Terre cuite</option><option value="silico">Silico-calcaire</option><option value="beton">Béton de granulats</option><option value="cellulaire">Béton cellulaire autoclavé</option><option value="reconstituee">Pierre reconstituée</option><option value="naturelle">Pierre naturelle</option></select></label>
+<label class="ligne"><span>Groupe</span><select data-champ="groupe"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+<label class="ligne"><span>f<sub>b</sub> normalisée (N/mm²)</span><input type="text" inputmode="decimal" data-champ="fb" /></label>
+<label class="ligne"><span>Mortier</span><select data-champ="mortier"><option value="courant">Usage courant</option><option value="mince">Joint mince</option><option value="allege-600">Allégé 600–800 kg/m³</option><option value="allege-800">Allégé 800–1300 kg/m³</option></select></label>
+<label class="ligne"><span>f<sub>m</sub> (N/mm²)</span><input type="text" inputmode="decimal" data-champ="fm" /></label>
+<label class="case"><input type="checkbox" data-champ="jointsRemplis" /> <span>Joints verticaux remplis</span></label>
+<label class="case"><input type="checkbox" data-champ="jointLongitudinal" /> <span>Joint longitudinal (K × 0,8)</span></label>
+<p class="source">Champs vides : valeur de la norme, affichée en grisé.</p>
+<label class="ligne"><span>K</span><input type="text" inputmode="decimal" data-champ="K" /></label>
+<label class="ligne"><span>α</span><input type="text" inputmode="decimal" data-champ="alpha" /></label>
+<label class="ligne"><span>β</span><input type="text" inputmode="decimal" data-champ="beta" /></label>
+<label class="ligne"><span>f<sub>vk0</sub> (N/mm²)</span><input type="text" inputmode="decimal" data-champ="fvk0" /></label>
+<label class="ligne"><span>f<sub>xk1</sub> (N/mm²)</span><input type="text" inputmode="decimal" data-champ="fxk1" /></label>
+<label class="ligne"><span>f<sub>xk2</sub> (N/mm²)</span><input type="text" inputmode="decimal" data-champ="fxk2" /></label>
+<label class="ligne"><span>γ<sub>M</sub></span><input type="text" inputmode="decimal" data-champ="gammaM" /></label>
+<p class="source">Valeur par défaut : classe 3, catégorie I, mortier performanciel (2.4.3). À régler selon l’Annexe nationale.</p>
+<label class="ligne"><span>φ<sub>∞</sub></span><input type="text" inputmode="decimal" data-champ="phi" /></label>
+<label class="ligne"><span>E / f<sub>k</sub></span><input type="text" inputmode="decimal" data-champ="KE" /></label>
+<label class="ligne"><span>λ<sub>c</sub></span><input type="text" inputmode="decimal" data-champ="lambdaC" /></label>
+</fieldset>
+<fieldset>
+<legend>Charges en tête</legend>
+<label class="ligne"><span>N<sub>G</sub> (kN/m)</span><input type="text" inputmode="decimal" data-champ="NG" /></label>
+<label class="ligne"><span>N<sub>Q</sub> (kN/m)</span><input type="text" inputmode="decimal" data-champ="NQ" /></label>
+<label class="ligne"><span>Excentricité en tête (mm)</span><input type="text" inputmode="decimal" data-champ="eTete" /></label>
+<label class="ligne"><span>Excentricité en pied (mm)</span><input type="text" inputmode="decimal" data-champ="ePied" /></label>
+<p class="source">Poids propre ajouté par l’outil. ELU : 1,35 G + 1,5 Q. Excentricités signées dans un même repère.</p>
+</fieldset>
+<fieldset>
+<legend>Charge concentrée</legend>
+<label class="ligne"><span>N<sub>Edc</sub> (kN), 0 sinon</span><input type="text" inputmode="decimal" data-champ="Nc" /></label>
+<label class="ligne"><span>Longueur d’appui (m)</span><input type="text" inputmode="decimal" data-champ="ac" /></label>
+<label class="ligne"><span>Largeur d’appui (m)</span><input type="text" inputmode="decimal" data-champ="bc" /></label>
+<label class="ligne"><span>a₁ au bord (m)</span><input type="text" inputmode="decimal" data-champ="a1" /></label>
+<label class="ligne"><span>h<sub>c</sub> (m)</span><input type="text" inputmode="decimal" data-champ="hc" /></label>
+<label class="ligne"><span>Excentricité (mm)</span><input type="text" inputmode="decimal" data-champ="ec" /></label>
+</fieldset>
+<fieldset>
+<legend>Contreventement</legend>
+<label class="ligne"><span>V<sub>Ed</sub> (kN), 0 sinon</span><input type="text" inputmode="decimal" data-champ="V" /></label>
+<label class="ligne"><span>Bras de levier (m)</span><input type="text" inputmode="decimal" data-champ="bras" /></label>
+</fieldset>
+<fieldset>
+<legend>Charge latérale</legend>
+<label class="ligne"><span>w<sub>k</sub> (kN/m²), 0 sinon</span><input type="text" inputmode="decimal" data-champ="wk" /></label>
+<label class="ligne"><span>Appuis du panneau</span><select data-champ="appuisLat"><option value="2">Tête et pied seulement</option><option value="3">3 bords</option><option value="4">4 bords</option></select></label>
+<label class="ligne" data-si-panneau><span>α₂ (annexe E)</span><input type="text" inputmode="decimal" data-champ="alpha2" /></label>
+<p class="source" data-si-panneau data-role="aide-alpha"></p>
+<label class="case"><input type="checkbox" data-champ="cumulVent" /> <span>Ajouter e<sub>hm</sub> à la charge verticale (6.4.2)</span></label>
+<label class="ligne"><span>ψ<sub>0</sub> du vent</span><input type="text" inputmode="decimal" data-champ="psi0" /></label>
+</fieldset>
+<fieldset>
+<legend>Cartouche</legend>
+<label class="ligne"><span>Projet</span><input type="text" data-role="projet" /></label>
+<label class="ligne"><span>Élément</span><input type="text" data-role="element" /></label>
+</fieldset>
+        </form>
+      </section>
+      <section id="resultat" aria-label="Résultats">
+        <div class="sorties">
+          <b>Sorties</b>
+          <div class="boutons">
+            <button type="button" class="principal" data-action="exporter-note">Note de calcul</button>
+            <button type="button" data-action="exporter-dessin">Mur (SVG)</button>
+            <button type="button" data-action="enregistrer">Saisie (JSON)</button>
+            <button type="button" data-action="reinitialiser">Réinitialiser</button>
+            <label class="bouton-fichier">Ouvrir…<input type="file" accept="application/json,.json" data-role="ouvrir" hidden /></label>
+          </div>
+        </div>
+        <div class="visuels" aria-label="Mur">
+          <div class="outils">
+            <span class="titre">Mur</span>
+            <label><input type="checkbox" data-option="cotes" checked /> cotes</label>
+            <label><input type="checkbox" data-option="comprimee" checked /> partie comprimée</label>
+          </div>
+          <div class="dessin" data-role="dessin"></div>
+        </div>
+        <div data-role="verdicts"></div>
+        <div data-role="volets"></div>
+      </section>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
