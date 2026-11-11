@@ -6,6 +6,7 @@ import { dessinMur } from './dessin';
 import { T, type Calcul, type Resultat } from './form';
 import { blocsResultat, clauses, entrees, hypotheses, nomNiveau, texteAlerte, titreVerification } from './vue';
 import { nombreAffiche as n, tauxAffiche } from 'aedificium-ui';
+import { VERSION_OUTIL } from './version';
 
 const bloc = (titre: string, lignes: LigneResultat[]): ElementNote => ({ type: 'bloc', bloc: { titre, lignes, note: null } });
 
@@ -20,6 +21,7 @@ export function noteDuCalcul(c: Calcul, r: Resultat, cartouche: { projet: string
   const titre = T('Données', 'Input');
   return {
     cartouche: {
+      version: VERSION_OUTIL,
       projet: cartouche.projet,
       element: cartouche.element.trim() === '' ? T('Mur', 'Wall') : cartouche.element,
       date: cartouche.date,
