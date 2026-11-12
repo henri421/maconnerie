@@ -12,7 +12,7 @@ export interface Saisie {
   t: string; h: string; L: string; poids: string;
   appuis: string; bordsVerticaux: string;
   famille: string; groupe: string; mortier: string; fb: string; fm: string;
-  jointsRemplis: boolean; jointLongitudinal: boolean;
+  jointsRemplis: boolean; jointLongitudinal: boolean; cellulaireLeger: boolean;
   K: string; alpha: string; beta: string; fvk0: string; fxk1: string; fxk2: string;
   gammaM: string; phi: string; KE: string; lambdaC: string;
   NG: string; NQ: string; eTete: string; ePied: string;
@@ -25,7 +25,7 @@ export const saisieParDefaut = (): Saisie => ({
   t: '0,20', h: '2,80', L: '4,00', poids: '20',
   appuis: 'dalle', bordsVerticaux: '0',
   famille: 'beton', groupe: '1', mortier: 'courant', fb: '15', fm: '10',
-  jointsRemplis: true, jointLongitudinal: false,
+  jointsRemplis: true, jointLongitudinal: false, cellulaireLeger: false,
   K: '', alpha: '', beta: '', fvk0: '', fxk1: '', fxk2: '',
   gammaM: '2,2', phi: '1,5', KE: '1000', lambdaC: '15',
   NG: '80', NQ: '30', eTete: '10', ePied: '0',
@@ -48,7 +48,7 @@ export function relire(texte: string): Saisie {
 }
 
 export const tableauDe = (s: Saisie): Tableau =>
-  valeursDeTableau(s.famille as Famille, Number(s.groupe) as Groupe, s.mortier as Mortier, lireNombre(s.fm) ?? 0);
+  valeursDeTableau(s.famille as Famille, Number(s.groupe) as Groupe, s.mortier as Mortier, lireNombre(s.fm) ?? 0, s.cellulaireLeger);
 
 class Refus extends Error {}
 

@@ -81,6 +81,9 @@ function ajusterAffichage(): void {
     const e = formulaire.querySelector<HTMLInputElement>(`[data-champ="${cle}"]`);
     if (e !== null) e.placeholder = v === null ? T('à saisir', 'enter') : nombreAffiche(v, 2);
   }
+  for (const z of formulaire.querySelectorAll<HTMLElement>('[data-si-cellulaire]')) {
+    z.hidden = saisie.famille !== 'cellulaire';
+  }
   for (const z of formulaire.querySelectorAll<HTMLElement>('[data-si-panneau]')) {
     z.hidden = saisie.appuisLat === '2';
   }

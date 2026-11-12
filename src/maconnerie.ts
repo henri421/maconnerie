@@ -49,14 +49,16 @@ function fxk1DeTableau(f: Famille, m: Mortier, fm: number): number | null {
   return f === 'terre-cuite' || f === 'cellulaire' ? 0.1 : null;
 }
 
-function fxk2DeTableau(f: Famille, m: Mortier, fm: number): number | null {
+/** NOTE 2 du 3.6.3(3) : beton cellulaire de masse volumique seche < 400 kg/m3 a part. */
+function fxk2DeTableau(f: Famille, m: Mortier, fm: number, cellulaireLeger = false): number | null {
+  if (f === 'cellulaire' && cellulaireLeger) return m === 'courant' || m === 'mince' ? 0.2 : 0.15;
   if (m === 'courant') return fm >= 5 ? 0.4 : 0.2;
   if (m === 'mince') return { 'terre-cuite': 0.15, silico: 0.3, beton: 0.3, cellulaire: 0.3, reconstituee: null, naturelle: 0.15 }[f];
   return f === 'terre-cuite' ? 0.1 : f === 'cellulaire' ? 0.15 : null;
 }
 
 /** Valeurs tabulees de la norme ; `K` nul signale une combinaison sans valeur. */
-export function valeursDeTableau(f: Famille, g: Groupe, m: Mortier, fm: number): Tableau {
+export function valeursDeTableau(f: Famille, g: Groupe, m: Mortier, fm: number, cellulaireLeger = false): Tableau {
   const K = TABLE_K[f][g]?.[INDICE_MORTIER[m]] ?? null;
   let alpha = 0.7;
   let beta = 0.3;
@@ -65,7 +67,7 @@ export function valeursDeTableau(f: Famille, g: Groupe, m: Mortier, fm: number):
     alpha = f === 'terre-cuite' && (g === 2 || g === 3) ? 0.7 : 0.85;
     beta = 0;
   }
-  return { K, alpha, beta, fvk0: fvk0DeTableau(f, m, fm), fxk1: fxk1DeTableau(f, m, fm), fxk2: fxk2DeTableau(f, m, fm) };
+  return { K, alpha, beta, fvk0: fvk0DeTableau(f, m, fm), fxk1: fxk1DeTableau(f, m, fm), fxk2: fxk2DeTableau(f, m, fm, cellulaireLeger) };
 }
 
 export interface Materiau {

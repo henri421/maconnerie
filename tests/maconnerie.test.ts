@@ -27,6 +27,14 @@ describe('tableaux de la norme', () => {
     expect(valeursDeTableau('terre-cuite', 2, 'mince', 10)).toMatchObject({ alpha: 0.7, beta: 0 });
     expect(valeursDeTableau('terre-cuite', 1, 'mince', 10)).toMatchObject({ alpha: 0.85, beta: 0 });
   });
+  it('fxk2 du beton cellulaire selon la masse volumique (3.6.3, audit E4)', () => {
+    expect(valeursDeTableau('cellulaire', 1, 'courant', 10).fxk2).toBe(0.4);
+    expect(valeursDeTableau('cellulaire', 1, 'courant', 10, true).fxk2).toBe(0.2);
+    expect(valeursDeTableau('cellulaire', 1, 'mince', 10).fxk2).toBe(0.3);
+    expect(valeursDeTableau('cellulaire', 1, 'mince', 10, true).fxk2).toBe(0.2);
+    expect(valeursDeTableau('cellulaire', 1, 'allege-600', 10, true).fxk2).toBe(0.15);
+    expect(valeursDeTableau('beton', 1, 'courant', 10, true).fxk2).toBe(0.4);
+  });
   it('fvk0 du tableau 3.4', () => {
     expect(valeursDeTableau('terre-cuite', 1, 'courant', 10).fvk0).toBe(0.3);
     expect(valeursDeTableau('beton', 1, 'courant', 5).fvk0).toBe(0.15);
