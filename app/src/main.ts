@@ -5,7 +5,7 @@ import {
   definirLangue,
   langueDuDocument,
   nombreAffiche,
-  noteDeCalculHtml,
+  noteDeCalculHtml, telechargerNotePdf,
   notationHtml,
   ouvrirOuTelecharger,
   svgAutonome,
@@ -161,13 +161,16 @@ document.addEventListener('click', (ev) => {
     return recalculer();
   }
   if (dernier === null) return montrerErreur(T('Rien à exporter : corrigez la saisie.', 'Nothing to export: correct the input.'));
-  if (action === 'exporter-note') {
+  if (action === 'exporter-note' || action === 'exporter-note-pdf') {
     const note = noteDuCalcul(dernier.calcul, dernier.resultat, {
       projet: champProjet.value,
       element: champElement.value,
       date: new Date().toISOString().slice(0, 10),
     });
-    ouvrirOuTelecharger('maconnerie-note.html', noteDeCalculHtml(note));
+    const noteCalc = note;
+    // PDF construit au clic ; en cas d'echec, la note HTML prend le relais.
+    if (action === 'exporter-note-pdf') void telechargerNotePdf('maconnerie-note.pdf', noteCalc, '').catch(() => ouvrirOuTelecharger('maconnerie-note.html', noteDeCalculHtml(noteCalc)));
+    else ouvrirOuTelecharger('maconnerie-note.html', noteDeCalculHtml(noteCalc));
   } else if (action === 'exporter-dessin') {
     telecharger('maconnerie-mur.svg', svgAutonome(dessinMur(dernier.calcul, dernier.resultat, optionsDessin()), ''), 'image/svg+xml;charset=utf-8');
   }
